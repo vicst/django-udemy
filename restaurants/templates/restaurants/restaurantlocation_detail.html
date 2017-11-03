@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block head_title %}  {{block.super}} || Detalii{% endblock head_title %}
+
+{%block content%}
+<script src="{% sttaic 'js/jquery.flot.js' %}"></script>
+<h1>{{object.name}}</h1>
+<p>{{object.category}}</p>
+{%endblock%}
+
+

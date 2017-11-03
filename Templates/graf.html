@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+<!--Load the AJAX API-->
+
+
+  // Load the Visualization API library and the piechart library.
+  google.load('visualization', '1.0', {'packages':['corechart']});
+     // ... draw the chart...
+</script>
+
+{% block content %}
+    {{chart.as_html}}
+{%endblock %}

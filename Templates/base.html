@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+    <html lang = ro>
+        <head>
+            {% include 'snippets/css.html' %}
+            <title>{%block head_title%} Restaurante {%endblock head_title%} </title>
+
+
+            <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+            <script type="text/javascript">
+                google.load("visualization", "1", {packages:["corechart", "treemap", "gauge"]});
+            </script>
+
+
+        </head>
+        <body>
+            <h1>Lamisto</h1>
+            {% include 'snippets/nav.html' %}
+            <div class = 'container'>
+                {% block content %}
+                    Super block
+                {%endblock content %}
+            </div>
+            {% include 'snippets/js.html' %}
+        </body>
+    </html>
