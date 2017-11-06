@@ -5,26 +5,45 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView
-
-from .models import RestaurantLocation
-
-#from graphos.sources.model import ModelDataSource
+from restaurants.models import RestaurantLocation
+from graphos.renderers import gchart
+from django.shortcuts import render
+from graphos.sources.model import ModelDataSource
 from graphos.sources.simple import SimpleDataSource
 from graphos.renderers.gchart import LineChart
+from graphos.views import FlotAsJson, RendererAsJson
 
 
-def graph(request):
-    data = [
-        ['An', 'Vanzari', 'Cheltuieli'],
-        [2001, 100, 1000],
-        [2004, 1000, 300],
-        [2005, 145, 302],
-        [2009, 164, 1132]
-    ]
-    data_source = SimpleDataSource(data = data)
-    chart = LineChart(data_source)
-    context = {'chart': chart}
-    return render(request, "graf.html", context)
+
+
+print "da"
+# def graph(request):
+#     data = [
+#         ['An', 'Vanzari', 'Cheltuieli'],
+#         [2001, 100, 1000],
+#         [2004, 1000, 300],
+#         [2005, 145, 302],
+#         [2009, 164, 1132]
+#     ]
+#     data_source = SimpleDataSource(data = data)
+#     chart = LineChart(data_source)
+#     context = {'chart': chart}
+#     return render(request, "graf.html", context)
+
+
+class GChartDemoView(TemplateView):
+    template_name = "graf.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(GChartDemoView, self).get_context_data(**kwargs)
+        queryset = RestaurantLocation.objects.all()
+        data_source = ModelDataSource(queryset, fields=['updated', 'vanzari'])
+        #data_source = SimpleDataSource(data=data)chart = gchart.LineChart(data_source)
+        context.update({'line_chart': chart})
+        print context
+        return context
+
+#gchart_demo = GChartDemoView.as_view()
 
 class RestaurantListView(ListView):
     #template_name = 'restaurants/restaurants_list.html'

@@ -19,6 +19,7 @@ from django.views.generic import TemplateView
 from restaurants.views import (
     RestaurantListView,
     RestaurantDetailView,
+    GChartDemoView,
 )
 from restaurants import views
 
@@ -27,7 +28,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', TemplateView.as_view(template_name = "home.html")),
     url(r'^restaurants/$', RestaurantListView.as_view()),
-    url(r'^graf/$', views.graph),
+    url(r'^graf/$', GChartDemoView.as_view(template_name = "graf.html")),
     url(r'^restaurants/(?P<rest_id>\[w+]-)/$', RestaurantDetailView.as_view()),
     url(r'^restaurants/lista/(?P<slug>\w+)/$', RestaurantListView.as_view()),
     url(r'^contact/$', TemplateView.as_view(template_name = "contact.html")),
